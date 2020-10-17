@@ -1,0 +1,8 @@
+html,
+body {
+	background: #444;
+	z-index: -10;
+	display: flex;
+	margin: auto;
+	transform: scale(1.1);
+}
