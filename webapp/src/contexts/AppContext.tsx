@@ -1,7 +1,7 @@
 import React, { createContext, PropsWithChildren, useState } from 'react'
 import ServiceFactory, { Clients, Services } from '../services'
 
-export type AppContextDefinition = Services | undefined
+type AppContextDefinition = Services | undefined
 export const AppContext = createContext<AppContextDefinition>(undefined)
 
 type Props = {
@@ -9,8 +9,7 @@ type Props = {
 }
 export default function AppContextProvider({ clients, children }: PropsWithChildren<Props>) {
 	const appServices = ServiceFactory({
-		someClient: clients.someClient,
-		anotherClient: clients.anotherClient,
+		realtimeDatabaseClient: clients.realtimeDatabaseClient,
 	})
 
 	const [services] = useState(appServices)

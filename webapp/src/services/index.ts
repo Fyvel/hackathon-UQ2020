@@ -1,12 +1,12 @@
-import DummyService from './dummy-service'
+import firebase from 'firebase'
+import Service from './service'
 
 export type Clients = {
-	someClient: any,
-	anotherClient: any,
+	realtimeDatabaseClient: firebase.database.Database,
 }
 
 export default function ServiceFactory(clients: Clients) {
-	const dummyService = DummyService(clients)
+	const dummyService = Service(clients)
 
 	return {
 		...dummyService,

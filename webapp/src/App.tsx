@@ -3,15 +3,13 @@ import AppContextProvider from './contexts/AppContext';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/routes';
 import Layout from './containers/Layout';
+import useFirebase from './hooks/useFirebase';
 
 export default function App() {
-	const clients = {
-		someClient: {},
-		anotherClient: {},
-	}
+	const clients = useFirebase()
 
 	return (
-		<AppContextProvider clients={clients}>
+		<AppContextProvider clients={{ realtimeDatabaseClient: clients.database }}>
 			<BrowserRouter>
 				<Layout>
 					<Routes />
