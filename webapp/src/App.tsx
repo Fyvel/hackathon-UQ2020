@@ -11,7 +11,8 @@ export default function App() {
 	return (
 		<AppContextProvider clients={{
 			realtimeDatabaseClient: clients.database,
-			authenticationClient: clients.auth
+			authenticationClient: clients.auth,
+			firestore: clients.firestore,
 		}}>
 			<BrowserRouter>
 				<Layout>

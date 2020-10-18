@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../contexts/AppContext';
+import { AppContext } from '../contexts/AppContext'
 import styles from './NesController.module.scss'
 
 export default function NesController() {
@@ -7,13 +7,23 @@ export default function NesController() {
 	const context = useContext(AppContext)
 
 	const handleSelect = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event.preventDefault();
-		event.stopPropagation();
-		console.log('Select click', context)
+		event.preventDefault()
+		event.stopPropagation()
+		console.log('Select click')
 		if (!context) return
 		!context.user
 			? context.signIn()
 			: context.signOut()
+	}
+
+	const handleStart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		event.preventDefault()
+		event.stopPropagation()
+		console.log('Start click')
+
+		if (!context?.user) return
+
+		context.connectToPi(context.user.uid)
 	}
 
 	return (
@@ -26,7 +36,7 @@ export default function NesController() {
 
 					<div className={styles.midButtons}>
 						<button className={styles.select} onClick={handleSelect}> </button>
-						<button className={styles.start}> </button>
+						<button className={styles.start} onClick={handleStart}> </button>
 					</div>
 
 					<div className={styles.dpad}>

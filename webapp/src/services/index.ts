@@ -3,14 +3,15 @@ import Service from './service'
 
 export type Clients = {
 	realtimeDatabaseClient: firebase.database.Database,
-	authenticationClient: firebase.auth.Auth
+	authenticationClient: firebase.auth.Auth,
+	firestore: firebase.firestore.Firestore,
 }
 
 export default function ServiceFactory(clients: Clients) {
-	const dummyService = Service(clients)
+	const service = Service(clients)
 
 	return {
-		...dummyService,
+		...service,
 	}
 }
 

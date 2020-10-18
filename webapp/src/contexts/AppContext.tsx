@@ -11,6 +11,7 @@ export default function AppContextProvider({ clients, children }: PropsWithChild
 	const appServices = ServiceFactory({
 		realtimeDatabaseClient: clients.realtimeDatabaseClient,
 		authenticationClient: clients.authenticationClient,
+		firestore: clients.firestore,
 	})
 
 	const [services] = useState(appServices)
@@ -19,10 +20,9 @@ export default function AppContextProvider({ clients, children }: PropsWithChild
 	clients.authenticationClient.onAuthStateChanged(function (user) {
 		if (user) {
 			// User is signed in.
-			const isAnonymous = user.isAnonymous
 			const uid = user.uid
 			setUser(user)
-			console.log('user', user)
+			console.log('user', uid)
 			// ...
 		} else {
 			// User is signed out.
