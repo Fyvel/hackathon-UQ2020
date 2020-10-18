@@ -7,7 +7,10 @@ export default function Service(clients: Clients) {
 		firestore,
 	} = clients
 
-	const updateState = async () => {
+	const updateState = async (robotName: string, direction: string) => {
+		firestore.collection('robots')
+			.doc(robotName)
+			.set({ direction: direction }, { merge: true });
 	}
 
 	const signIn = async () => {
@@ -18,35 +21,40 @@ export default function Service(clients: Clients) {
 		authenticationClient.signOut()
 	}
 
-	const connectToPi = async (uuid: string) => {
-		console.log('uuid', uuid)
-		const getAvalaiblePi$ = firestore.collection('robots')
+	const disconnectPi = async (robot: string) => {
+		return assignPi$(robot, '')
+	}
+
+	const connectPi = async (uuid: string) => {
+		return firestore.collection('robots')
 			.where('uuid', '==', '')
 			.get()
 			.then(snapshot => {
-				snapshot.forEach(doc => {
+				if (!snapshot.size) {
+					const message = '😱 Oh no! 🤖 All robots are busy at the moment'
+					alert(message)
+					return
+				}
+				const result = snapshot.docs.map(doc => {
 					const res = doc.data()
-					if (!res) {
-						alert('😱 Oh no! 🤖 All robots are busy at the moment')
-						return
-					}
 					return res
-				})
+				})[0]
+				return assignPi$(result.name, uuid)
 			})
-		const assignToPi$ = async (robotId: string) => {
-			firestore.collection('robots').doc(robotId).update({
-				
-			});
-		}
+	}
 
-		const result = await getAvalaiblePi$
-		return result
+	const assignPi$ = async (robotName: string, userId: string) => {
+		firestore.collection('robots')
+			.doc(robotName)
+			.set({ uuid: userId }, { merge: true });
+		return robotName
 	}
 
 	return {
 		updateState,
 		signIn,
 		signOut,
-		connectToPi,
+		connectPi,
+		disconnectPi,
 	}
 }

@@ -43,13 +43,25 @@ button {
 		h1 {
 			margin: 0;
 			padding: 0;
-			line-height: 1px;
+			line-height: 0px;
 			font-family: "Coda Caption", sans-serif;
 			font-size: 16px;
 			color: #dd2020;
 			letter-spacing: -1px;
 			position: relative;
 			top: 40px;
+			left: 340px;
+		}
+
+		h2 {
+			margin: 0;
+			padding: 0;
+			line-height: 0px;
+			font-family: "Coda Caption", sans-serif;
+			font-size: 10px;
+			color: #dd2020;
+			position: relative;
+			top: 57px;
 			left: 340px;
 		}
 
