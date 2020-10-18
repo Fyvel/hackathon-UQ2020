@@ -9,7 +9,10 @@ export default function App() {
 	const clients = useFirebase()
 
 	return (
-		<AppContextProvider clients={{ realtimeDatabaseClient: clients.database }}>
+		<AppContextProvider clients={{
+			realtimeDatabaseClient: clients.database,
+			authenticationClient: clients.auth
+		}}>
 			<BrowserRouter>
 				<Layout>
 					<Routes />

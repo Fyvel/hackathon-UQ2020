@@ -3,6 +3,7 @@ import Service from './service'
 
 export type Clients = {
 	realtimeDatabaseClient: firebase.database.Database,
+	authenticationClient: firebase.auth.Auth
 }
 
 export default function ServiceFactory(clients: Clients) {
